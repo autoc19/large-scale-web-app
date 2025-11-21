@@ -7,7 +7,7 @@
   - Configure output directory to src/lib/paraglide
   - _Requirements: 1.1, 1.4_
 
-- [ ] 2. Create Paraglide configuration
+- [x] 2. Create Paraglide configuration
   - [x] 2.1 Create project.inlang directory and settings.json
     - Set baseLocale to "en"
     - Configure locales array: ["en", "zh-tw", "jp"]
@@ -15,13 +15,13 @@
     - Add m-function-matcher plugin
     - Set pathPattern to "./messages/{locale}.json"
     - _Requirements: 1.1, 1.2, 1.5_
-  - [ ]\* 2.2 Write unit tests for configuration
+  - [x] 2.2 Write unit tests for configuration
     - Test configuration file is valid JSON
     - Test all required fields are present
     - Test locale codes are valid
     - _Requirements: 1.1, 1.2_
 
-- [ ] 3. Create message files
+- [x] 3. Create message files
   - [x] 3.1 Create messages directory structure
     - Create messages/ directory in project root
     - Create en.json with schema reference
@@ -47,16 +47,16 @@
     - Add messages with date parameters (created_at with {date})
     - Ensure parameter consistency across all locales
     - _Requirements: 2.4, 3.2_
-  - [ ]\* 3.5 Write property test for message key consistency
+  - [x] 3.5 Write property test for message key consistency
     - **Property 1: Message Key Consistency**
     - **Validates: Requirements 9.2**
-  - [ ]\* 3.6 Write unit tests for message files
+  - [x] 3.6 Write unit tests for message files
     - Test all locales have same keys
     - Test all messages have valid JSON syntax
     - Test parameter placeholders are consistent
     - _Requirements: 2.5, 9.2_
 
-- [ ] 4. Implement locale switcher
+- [x] 4. Implement locale switcher
   - [x] 4.1 Create locale switcher utilities
     - Define LocaleInfo interface
     - Create availableLocales array with en, zh-tw, jp
@@ -74,16 +74,16 @@
     - Update all displayed messages
     - Update document lang attribute
     - _Requirements: 6.2, 6.3_
-  - [ ]\* 4.4 Write property test for locale switching
+  - [x] 4.4 Write property test for locale switching
     - **Property 4: Locale Switching Updates UI**
     - **Validates: Requirements 6.2, 6.3**
-  - [ ]\* 4.5 Write property test for locale persistence
+  - [x] 4.5 Write property test for locale persistence
     - **Property 9: Locale Persistence**
     - **Validates: Requirements 6.4**
-  - [ ]\* 4.6 Write property test for browser locale detection
+  - [x] 4.6 Write property test for browser locale detection
     - **Property 10: Browser Locale Detection**
     - **Validates: Requirements 6.5**
-  - [ ]\* 4.7 Write unit tests for locale switcher
+  - [x] 4.7 Write unit tests for locale switcher
     - Test getCurrentLocale returns correct locale
     - Test setLocale updates current locale
     - Test detectBrowserLocale detects correct locale
@@ -91,7 +91,7 @@
     - Test locale restoration from localStorage
     - _Requirements: 6.1, 6.2, 6.4, 6.5_
 
-- [ ] 5. Create LocaleSwitcher component
+- [x] 5. Create LocaleSwitcher component
   - [x] 5.1 Implement LocaleSwitcher component
     - Define Props interface (including class?: string)
     - Use $props() for prop destructuring (rename class to className)
@@ -103,17 +103,17 @@
     - Apply Tailwind styling
     - _Requirements: 6.1, 6.2_
     - _Svelte 5: NO on: directive, use onchange attribute_
-  - [ ]\* 5.2 Write unit tests for LocaleSwitcher
+  - [x] 5.2 Write unit tests for LocaleSwitcher
     - Test component renders all locales
     - Test locale change updates state
     - Test locale change calls setLocale
     - _Requirements: 6.1, 6.2_
-  - [ ]\* 5.3 Create LocaleSwitcher Storybook story
+  - [x] 5.3 Create LocaleSwitcher Storybook story
     - Story showing all available locales
     - Story demonstrating locale switching
     - _Requirements: 6.1_
 
-- [ ] 6. Implement pluralization support
+- [x] 6. Implement pluralization support
   - [x] 6.1 Add plural messages for English
     - Add todo_count with singular/plural forms
     - Add completed_count with singular/plural forms
@@ -133,17 +133,17 @@
     - Add messages for zero items in all locales
     - Test zero-case displays correctly
     - _Requirements: 7.5_
-  - [ ]\* 6.5 Write property test for pluralization
+  - [x] 6.5 Write property test for pluralization
     - **Property 5: Pluralization Correctness**
     - **Validates: Requirements 7.1, 7.2, 7.3, 7.4**
-  - [ ]\* 6.6 Write unit tests for pluralization
+  - [x] 6.6 Write unit tests for pluralization
     - Test singular form for count = 1
     - Test plural form for count > 1
     - Test zero form for count = 0
     - Test for all locales
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5_
 
-- [ ] 7. Implement date and number formatters
+- [x] 7. Implement date and number formatters
   - [x] 7.1 Create date formatter
     - Define DateFormatOptions interface
     - Implement formatDate function using Intl.DateTimeFormat
@@ -165,13 +165,13 @@
     - Use locale-appropriate phrases
     - Handle all supported locales
     - _Requirements: 8.5_
-  - [ ]\* 7.4 Write property test for date formatting
+  - [x] 7.4 Write property test for date formatting
     - **Property 6: Date Format Locale Consistency**
     - **Validates: Requirements 8.1**
-  - [ ]\* 7.5 Write property test for number formatting
+  - [x] 7.5 Write property test for number formatting
     - **Property 7: Number Format Locale Consistency**
     - **Validates: Requirements 8.2**
-  - [ ]\* 7.6 Write unit tests for formatters
+  - [x] 7.6 Write unit tests for formatters
     - Test formatDate with different styles
     - Test formatDate with different locales
     - Test formatNumber with different styles
@@ -179,27 +179,27 @@
     - Test formatRelativeTime with different locales
     - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5_
 
-- [ ] 8. Implement missing translation handling
+- [x] 8. Implement missing translation handling
   - [x] 8.1 Add fallback logic
     - Fall back to base locale (en) for missing translations
     - Log warning in development mode
     - Display message key as last resort
     - _Requirements: 9.1, 9.2, 9.3, 9.4_
-  - [ ]\* 8.2 Write property test for fallback
+  - [x]\* 8.2 Write property test for fallback
     - **Property 3: Missing Translation Fallback**
     - **Validates: Requirements 9.1**
-  - [ ]\* 8.3 Write unit tests for fallback
+  - [x]\* 8.3 Write unit tests for fallback
     - Test fallback to base locale
     - Test warning logged in dev mode
     - Test message key displayed as last resort
     - _Requirements: 9.1, 9.2, 9.3, 9.4_
-  - [ ]\* 8.4 Create missing translation report
+  - [x]\* 8.4 Create missing translation report
     - Generate report of missing translations
     - List missing keys per locale
     - Output to console or file
     - _Requirements: 9.5_
 
-- [ ] 9. Implement build-time validation
+- [x] 9. Implement build-time validation
   - [x] 9.1 Add message file validation
     - Validate JSON syntax in all message files
     - Validate all locales have same keys
@@ -211,17 +211,17 @@
     - Report unused keys
     - Optionally fail build on unused keys
     - _Requirements: 10.3_
-  - [ ]\* 9.3 Write property test for build validation
+  - [x]\* 9.3 Write property test for build validation
     - **Property 8: Build-time Validation**
     - **Validates: Requirements 10.1, 10.2**
-  - [ ]\* 9.4 Write unit tests for validation
+  - [x]\* 9.4 Write unit tests for validation
     - Test validation catches missing keys
     - Test validation catches invalid JSON
     - Test validation catches parameter mismatches
     - Test validation reports unused keys
     - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.5_
 
-- [ ] 10. Update todo components with translations
+- [x] 10. Update todo components with translations
   - [x] 10.1 Update TodoList component
     - Replace hardcoded strings with message functions
     - Use m.all_todos(), m.loading(), m.error()
@@ -237,25 +237,25 @@
     - Use m.add_todo(), m.todo_title()
     - Use translated validation messages
     - _Requirements: 3.1, 3.4, 5.5_
-  - [ ]\* 10.4 Write integration tests for translated components
+  - [x]\* 10.4 Write integration tests for translated components
     - Test components display translated text
     - Test components update on locale change
     - Test for all supported locales
     - _Requirements: 3.1, 3.4_
 
-- [ ] 11. Add LocaleSwitcher to application layout
+- [x] 11. Add LocaleSwitcher to application layout
   - [x] 11.1 Add LocaleSwitcher to header/navigation
     - Import LocaleSwitcher component
     - Place in application header or navigation
     - Style consistently with application design
     - _Requirements: 6.1_
-  - [ ]\* 11.2 Write integration tests for locale switching
+  - [x]\* 11.2 Write integration tests for locale switching
     - Test locale switcher appears in layout
     - Test switching locale updates all components
     - Test locale preference persists across page loads
     - _Requirements: 6.1, 6.2, 6.3, 6.4_
 
-- [ ] 12. Write E2E tests for i18n
+- [ ]\* 12. Write E2E tests for i18n
   - [ ]\* 12.1 Create E2E test for locale switching
     - Navigate to application
     - Switch to Chinese (zh-tw)
@@ -282,7 +282,7 @@
     - Verify formatting changes per locale
     - _Requirements: 8.1, 8.2_
 
-- [ ] 13. Documentation
+- [ ]\* 13. Documentation
   - [ ]\* 13.1 Create i18n usage guide
     - Document how to add new messages
     - Document how to use messages in components

@@ -38,6 +38,7 @@
 
 	<form method="POST" action="?/create" use:enhance class="space-y-4">
 		<Input
+			name="title"
 			bind:value={$form.title}
 			label={m.todo_title()}
 			placeholder={m.todo_title()}

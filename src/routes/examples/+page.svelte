@@ -108,7 +108,13 @@
 		<section class="mb-12 bg-white rounded-lg shadow p-6">
 			<h2 class="text-2xl font-bold text-gray-900 mb-6">Form Example</h2>
 			<div class="max-w-md">
-				<form onsubmit|preventDefault={handleSubscribe} class="space-y-4">
+				<form
+					onsubmit={(e) => {
+						e.preventDefault();
+						handleSubscribe();
+					}}
+					class="space-y-4"
+				>
 					<Input
 						bind:value={email}
 						type="email"
@@ -116,7 +122,6 @@
 						placeholder="Enter your email"
 						error={emailError}
 						required
-						oninput={handleEmailChange}
 					/>
 
 					<Button type="submit" variant="primary" class="w-full">
@@ -185,7 +190,10 @@ export const load = async ({ fetch }) => {
 </div>
 
 <!-- Modal -->
-<Modal bind:open={isModalOpen} header={() => 'Success'} onclose={handleModalClose}>
+<Modal bind:open={isModalOpen} onclose={handleModalClose}>
+	{#snippet header({ close })}
+		<span>Success</span>
+	{/snippet}
 	<p class="text-gray-700">{modalMessage}</p>
 	<div class="mt-4 flex gap-2">
 		<Button variant="primary" onclick={handleModalClose}>

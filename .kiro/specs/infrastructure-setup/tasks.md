@@ -33,7 +33,7 @@
     - Export immutable publicConfig object with `as const`
     - _Requirements: 2.1, 2.3, 2.5_
 
-  - [-]\* 4.2 Write property test for configuration validation
+  - [x] 4.2 Write property test for configuration validation
     - **Property 1: Configuration Validation**
     - **Validates: Requirements 2.3**
 
@@ -65,7 +65,7 @@
     - Handle JSON parse errors
     - _Requirements: 5.2_
 
-  - [ ]\* 5.3 Write property test for HTTP client error handling
+  - [x] 5.3 Write property test for HTTP client error handling
     - **Property 4: HTTP Client Error Handling**
     - **Validates: Requirements 5.2**
   - [x]\* 5.4 Write unit tests for HTTP client
@@ -83,7 +83,7 @@
     - Add JSDoc comments explaining usage
     - _Requirements: 3.1, 3.2_
 
-  - [ ]\* 6.2 Write property test for context key uniqueness
+  - [x] 6.2 Write property test for context key uniqueness
     - **Property 5: Context Key Uniqueness**
     - **Validates: Requirements 3.1**
   - [x]\* 6.3 Write unit tests for dependency injection
@@ -122,7 +122,7 @@
     - Test disabled state prevents clicks
     - Test keyboard accessibility
     - _Requirements: 4.2, 4.3, 4.4, 4.10_
-  - [ ]\* 7.5 Create Button Storybook stories
+  - [x] 7.5 Create Button Storybook stories
     - Story for all variants
     - Story for all sizes
     - Story for disabled state
@@ -142,7 +142,7 @@
     - _Requirements: 4.5, 4.6, 4.8, 4.9_
     - _Svelte 5: Use $bindable() for two-way binding, NO on: directive_
 
-  - [ ]\* 8.2 Write property test for Input value binding
+  - [x] 8.2 Write property test for Input value binding
     - **Property 7: Input Value Binding**
     - **Validates: Requirements 4.6**
   - [x] 8.3 Add accessibility features to Input
@@ -159,7 +159,7 @@
     - Test label association
     - Test accessibility attributes
     - _Requirements: 4.5, 4.6, 4.10_
-  - [ ]\* 8.5 Create Input Storybook stories
+  - [x] 8.5 Create Input Storybook stories
     - Story for all input types
     - Story with label and placeholder
     - Story with error state
@@ -180,7 +180,7 @@
     - _Requirements: 4.7, 4.8, 4.9_
     - _Svelte 5: NO <slot>, NO on: directive, use Snippets_
 
-  - [ ]\* 9.2 Write property test for Modal open state
+  - [x] 9.2 Write property test for Modal open state
     - **Property 8: Modal Open State**
     - **Validates: Requirements 4.7**
   - [x] 9.3 Add accessibility features to Modal
@@ -198,7 +198,7 @@
     - Test focus trap works correctly
     - Test accessibility attributes
     - _Requirements: 4.7, 4.10_
-  - [ ]\* 9.5 Create Modal Storybook stories
+  - [x] 9.5 Create Modal Storybook stories
     - Story for different sizes
     - Story with header and footer
     - Story without header/footer
@@ -212,7 +212,7 @@
     - Verify all existing code passes strict checks
     - _Requirements: 6.1_
 
-  - [ ]\* 10.2 Write property test for TypeScript strict mode
+  - [x] 10.2 Write property test for TypeScript strict mode
     - **Property 10: TypeScript Strict Mode**
     - **Validates: Requirements 6.1**
   - [x] 10.3 Configure ESLint rules
@@ -240,7 +240,7 @@
     - Set up Storybook build script
     - _Requirements: 6.5_
 
-- [ ] 11. Integration testing
+- [x] 11. Integration testing
   - [x]\* 11.1 Write integration tests for path aliases
     - Test imports from $core resolve correctly
     - Test imports from $ui resolve correctly
@@ -258,7 +258,7 @@
     - Test all components work together
     - _Requirements: 4.1, 4.5, 4.7_
 
-- [ ] 12. Documentation and examples
+- [x] 12. Documentation and examples
   - [x]\* 12.1 Create README for infrastructure
     - Document configuration usage
     - Document HTTP client usage

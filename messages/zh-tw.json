@@ -26,9 +26,9 @@
 	"mark_complete": "標記為完成",
 	"mark_incomplete": "標記為未完成",
 	"delete_todo": "刪除待辦事項",
-	"todo_count": "你有 {count} 個待辦事項",
-	"completed_count": "{count} 個待辦事項已完成",
-	"pending_count": "{count} 個待辦事項待處理",
+	"todo_count": "{count, plural, one {你有 1 個待辦事項} other {你有 {count} 個待辦事項}}",
+	"completed_count": "{count, plural, one {1 個待辦事項已完成} other {{count} 個待辦事項已完成}}",
+	"pending_count": "{count, plural, one {1 個待辦事項待處理} other {{count} 個待辦事項待處理}}",
 	"title_required": "標題為必填項",
 	"title_too_short": "標題至少需要 2 個字符",
 	"title_too_long": "標題不能超過 100 個字符"

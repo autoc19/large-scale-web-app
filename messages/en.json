@@ -26,9 +26,9 @@
 	"mark_complete": "Mark Complete",
 	"mark_incomplete": "Mark Incomplete",
 	"delete_todo": "Delete Todo",
-	"todo_count": "You have {count} todos",
-	"completed_count": "{count} todos completed",
-	"pending_count": "{count} todos pending",
+	"todo_count": "{count, plural, one {You have 1 todo} other {You have {count} todos}}",
+	"completed_count": "{count, plural, one {1 todo completed} other {{count} todos completed}}",
+	"pending_count": "{count, plural, one {1 todo pending} other {{count} todos pending}}",
 	"title_required": "Title is required",
 	"title_too_short": "Title must be at least 2 characters",
 	"title_too_long": "Title must be less than 100 characters"

@@ -18,10 +18,10 @@
     - Define updateTodoSchema with optional title and completed
     - Export type inference types using z.infer
     - _Requirements: 1.4, 1.5, 1.6_
-  - [ ]\* 2.3 Write property test for form validation
+  - [x] 2.3 Write property test for form validation
     - **Property 9: Form Validation Rejection**
     - **Validates: Requirements 1.4**
-  - [ ]\* 2.4 Write unit tests for schemas
+  - [x] 2.4 Write unit tests for schemas
     - Test createTodoSchema rejects titles shorter than 2 characters
     - Test createTodoSchema rejects titles longer than 100 characters
     - Test createTodoSchema accepts valid titles
@@ -47,10 +47,10 @@
     - Include descriptive error messages for each operation
     - Handle network errors appropriately
     - _Requirements: 2.3_
-  - [ ]\* 3.4 Write property test for repository error handling
+  - [x] 3.4 Write property test for repository error handling
     - **Property 10: Repository Error Throwing**
     - **Validates: Requirements 2.3, 8.1**
-  - [ ]\* 3.5 Write unit tests for HTTP repository
+  - [x] 3.5 Write unit tests for HTTP repository
     - Test getAll fetches todos correctly
     - Test create sends correct payload
     - Test update sends correct payload
@@ -58,7 +58,7 @@
     - Test error handling for 4xx and 5xx responses
     - Mock fetch function using vi.fn()
     - _Requirements: 2.2, 2.3, 2.4, 2.6_
-  - [ ]\* 3.6 Create mock repository for testing
+  - [x] 3.6 Create mock repository for testing
     - Implement MockTodoRepository with in-memory storage
     - Implement all TodoRepository interface methods
     - Use for service layer testing
@@ -107,28 +107,28 @@
     - Implement select method to set selectedId
     - Implement clearSelection method to clear selectedId
     - _Requirements: 3.2_
-  - [ ]\* 4.7 Write property test for todo creation
+  - [x] 4.7 Write property test for todo creation
     - **Property 1: Todo Creation Adds Item**
     - **Validates: Requirements 3.7**
-  - [ ]\* 4.8 Write property test for toggle
+  - [x] 4.8 Write property test for toggle
     - **Property 2: Toggle Flips Completion Status**
     - **Validates: Requirements 3.6**
-  - [ ]\* 4.9 Write property test for delete
+  - [x] 4.9 Write property test for delete
     - **Property 3: Delete Removes Item**
     - **Validates: Requirements 3.8**
-  - [ ]\* 4.10 Write property test for loading state
+  - [x] 4.10 Write property test for loading state
     - **Property 4: Loading State Management**
     - **Validates: Requirements 3.4**
-  - [ ]\* 4.11 Write property test for error handling
+  - [x] 4.11 Write property test for error handling
     - **Property 5: Error State on Repository Failure**
     - **Validates: Requirements 8.2, 8.3**
-  - [ ]\* 4.12 Write property test for optimistic rollback
+  - [x] 4.12 Write property test for optimistic rollback
     - **Property 6: Optimistic Update Rollback**
     - **Validates: Requirements 8.2**
-  - [ ]\* 4.13 Write property test for completed count
+  - [x] 4.13 Write property test for completed count
     - **Property 7: Completed Count Accuracy**
     - **Validates: Requirements 3.3**
-  - [ ]\* 4.14 Write unit tests for TodoService
+  - [x] 4.14 Write unit tests for TodoService
     - Test service initializes with initial data
     - Test loadTodos updates items
     - Test createTodo adds item
@@ -156,14 +156,14 @@
     - Apply Tailwind classes for styling
     - _Requirements: 4.2, 4.3, 4.4, 4.5, 4.6_
     - _Svelte 5: NO on: directive, use onclick attribute_
-  - [ ]\* 6.2 Write unit tests for TodoItem
+  - [x] 6.2 Write unit tests for TodoItem
     - Test todo renders with correct title
     - Test completed todos have line-through styling
     - Test toggle button calls onToggle
     - Test delete button calls onDelete
     - Test click on item calls onSelect
     - _Requirements: 4.2, 4.3, 4.4, 4.5_
-  - [ ]\* 6.3 Create TodoItem Storybook stories
+  - [x] 6.3 Create TodoItem Storybook stories
     - Story for pending todo
     - Story for completed todo
     - Story with long title
@@ -179,7 +179,7 @@
     - Display error message when service.error is set
     - Display empty state when items.length is 0
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 8.4_
-  - [ ]\* 7.2 Write unit tests for TodoList
+  - [x] 7.2 Write unit tests for TodoList
     - Test renders all todos from service
     - Test displays loading indicator
     - Test displays error message
@@ -187,7 +187,7 @@
     - Test passes correct props to TodoItem
     - Mock service using setContext in test
     - _Requirements: 4.1, 4.2, 4.6, 8.4_
-  - [ ]\* 7.3 Create TodoList Storybook stories
+  - [x] 7.3 Create TodoList Storybook stories
     - Story with multiple todos
     - Story with loading state
     - Story with error state
@@ -206,13 +206,13 @@
     - Use UI primitive Button for submit
     - _Requirements: 4.7, 4.8, 4.9_
     - _Svelte 5: Define Props interface, NO on: directive_
-  - [ ]\* 8.2 Write unit tests for TodoForm
+  - [x] 8.2 Write unit tests for TodoForm
     - Test form renders with input field
     - Test validation errors display
     - Test submitting state disables button
     - Test form submission calls action
     - _Requirements: 4.7, 4.8, 4.9_
-  - [ ]\* 8.3 Create TodoForm Storybook stories
+  - [x] 8.3 Create TodoForm Storybook stories
     - Story with empty form
     - Story with validation errors
     - Story with submitting state
@@ -237,7 +237,7 @@
     - Call repository.create() with form data
     - Return form with success status
     - _Requirements: 6.2, 6.3, 6.4, 6.5_
-  - [ ]\* 10.3 Write unit tests for server actions
+  - [x] 10.3 Write unit tests for server actions
     - Test create action validates form data
     - Test create action returns 400 on validation failure
     - Test create action calls repository on success
@@ -257,24 +257,24 @@
     - Render TodoList component
     - _Requirements: 5.3, 5.4, 5.5, 5.6, 5.7, 9.1, 9.2, 9.3, 9.4, 9.5_
     - _Svelte 5: Define Props interface, use $effect for sync_
-  - [ ]\* 11.2 Write property test for $effect sync
+  - [x] 11.2 Write property test for $effect sync
     - **Property 8: $effect Sync on Route Change**
     - **Validates: Requirements 9.2, 9.5**
-  - [ ]\* 11.3 Write integration tests for page
+  - [x] 11.3 Write integration tests for page
     - Test service is injected into context
     - Test $effect syncs service state on data change
     - Test page renders TodoForm and TodoList
     - Test error display works correctly
     - _Requirements: 5.3, 5.4, 5.5, 5.6, 5.7, 9.1, 9.2, 9.3, 9.4, 9.5_
 
-- [ ] 12. Write E2E tests
-  - [ ]\* 12.1 Create E2E test for todo creation
+- [x] 12. Write E2E tests
+  - [x]\* 12.1 Create E2E test for todo creation
     - Navigate to /todos page
     - Fill in todo title
     - Submit form
     - Verify todo appears in list
     - _Requirements: Full flow testing_
-  - [ ]\* 12.2 Create E2E test for todo toggle
+  - [x]\* 12.2 Create E2E test for todo toggle
     - Navigate to /todos page
     - Create a todo
     - Click toggle button
@@ -282,18 +282,18 @@
     - Click toggle again
     - Verify line-through styling removed
     - _Requirements: Full flow testing_
-  - [ ]\* 12.3 Create E2E test for todo deletion
+  - [x]\* 12.3 Create E2E test for todo deletion
     - Navigate to /todos page
     - Create a todo
     - Click delete button
     - Verify todo removed from list
     - _Requirements: Full flow testing_
-  - [ ]\* 12.4 Create E2E test for error handling
+  - [x]\* 12.4 Create E2E test for error handling
     - Mock API to return error
     - Navigate to /todos page
     - Verify error message displays
     - _Requirements: 8.4_
-  - [ ]\* 12.5 Create E2E test for form validation
+  - [x]\* 12.5 Create E2E test for form validation
     - Navigate to /todos page
     - Submit form with empty title
     - Verify validation error displays
@@ -301,19 +301,19 @@
     - Verify validation error displays
     - _Requirements: 6.7_
 
-- [ ] 13. Documentation and examples
-  - [ ]\* 13.1 Create README for todo domain
+- [x] 13. Documentation and examples
+  - [x]\* 13.1 Create README for todo domain
     - Document todo domain architecture
     - Explain Repository pattern usage
     - Explain Service pattern with Runes
     - Explain $effect sync pattern (CRITICAL)
     - Add code examples for each layer
-  - [ ]\* 13.2 Document critical patterns
+  - [x]\* 13.2 Document critical patterns
     - Document the $effect sync pattern in detail
     - Document optimistic updates pattern
     - Document error handling pattern
     - Document form handling with Superforms
-  - [ ]\* 13.3 Create architecture diagram
+  - [x]\* 13.3 Create architecture diagram
     - Create diagram showing data flow
     - Show relationship between layers
     - Highlight critical $effect pattern

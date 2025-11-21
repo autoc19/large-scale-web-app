@@ -26,9 +26,9 @@
 	"mark_complete": "完了にする",
 	"mark_incomplete": "未完了にする",
 	"delete_todo": "Todoを削除",
-	"todo_count": "{count}個のTodoがあります",
-	"completed_count": "{count}個のTodoが完了しました",
-	"pending_count": "{count}個のTodoが未完了です",
+	"todo_count": "{count, plural, one {1個のTodoがあります} other {{count}個のTodoがあります}}",
+	"completed_count": "{count, plural, one {1個のTodoが完了しました} other {{count}個のTodoが完了しました}}",
+	"pending_count": "{count, plural, one {1個のTodoが未完了です} other {{count}個のTodoが未完了です}}",
 	"title_required": "タイトルは必須です",
 	"title_too_short": "タイトルは2文字以上である必要があります",
 	"title_too_long": "タイトルは100文字以内である必要があります"
