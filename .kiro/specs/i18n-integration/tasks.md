@@ -1,0 +1,311 @@
+# Implementation Plan
+
+- [x] 1. Install and configure Paraglide JS
+  - Install @inlang/paraglide-js package
+  - Install @inlang/paraglide-js-adapter-sveltekit package
+  - Add paraglideVitePlugin to vite.config.ts
+  - Configure output directory to src/lib/paraglide
+  - _Requirements: 1.1, 1.4_
+
+- [ ] 2. Create Paraglide configuration
+  - [x] 2.1 Create project.inlang directory and settings.json
+    - Set baseLocale to "en"
+    - Configure locales array: ["en", "zh-tw", "jp"]
+    - Add message-format plugin
+    - Add m-function-matcher plugin
+    - Set pathPattern to "./messages/{locale}.json"
+    - _Requirements: 1.1, 1.2, 1.5_
+  - [ ]\* 2.2 Write unit tests for configuration
+    - Test configuration file is valid JSON
+    - Test all required fields are present
+    - Test locale codes are valid
+    - _Requirements: 1.1, 1.2_
+
+- [ ] 3. Create message files
+  - [x] 3.1 Create messages directory structure
+    - Create messages/ directory in project root
+    - Create en.json with schema reference
+    - Create zh-tw.json with schema reference
+    - Create jp.json with schema reference
+    - _Requirements: 2.1, 2.2, 2.3_
+  - [x] 3.2 Define common UI messages
+    - Add action messages (save, cancel, delete, edit, create, update, close, confirm)
+    - Add state messages (loading, success, error, warning)
+    - Add navigation messages (home, settings, profile, logout)
+    - Translate all messages to zh-tw and jp
+    - _Requirements: 4.1, 4.2, 4.3, 4.4, 2.5_
+  - [x] 3.3 Define todo domain messages
+    - Add todo label messages (todo_title, add_todo, edit_todo, all_todos, etc.)
+    - Add todo action messages (mark_complete, mark_incomplete, delete_todo)
+    - Add todo count messages with pluralization
+    - Add todo validation messages
+    - Translate all messages to zh-tw and jp
+    - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 2.5_
+  - [x] 3.4 Add parameter support to messages
+    - Add messages with string parameters (hello_world with {name})
+    - Add messages with number parameters (todo_count with {count})
+    - Add messages with date parameters (created_at with {date})
+    - Ensure parameter consistency across all locales
+    - _Requirements: 2.4, 3.2_
+  - [ ]\* 3.5 Write property test for message key consistency
+    - **Property 1: Message Key Consistency**
+    - **Validates: Requirements 9.2**
+  - [ ]\* 3.6 Write unit tests for message files
+    - Test all locales have same keys
+    - Test all messages have valid JSON syntax
+    - Test parameter placeholders are consistent
+    - _Requirements: 2.5, 9.2_
+
+- [ ] 4. Implement locale switcher
+  - [x] 4.1 Create locale switcher utilities
+    - Define LocaleInfo interface
+    - Create availableLocales array with en, zh-tw, jp
+    - Implement getCurrentLocale function
+    - Implement setLocale function
+    - Implement detectBrowserLocale function
+    - _Requirements: 6.1, 6.2, 6.5_
+  - [x] 4.2 Implement locale persistence
+    - Save locale preference to localStorage
+    - Load locale preference on app startup
+    - Fall back to browser locale if no preference
+    - _Requirements: 6.4_
+  - [x] 4.3 Implement locale change reactivity
+    - Trigger re-render when locale changes
+    - Update all displayed messages
+    - Update document lang attribute
+    - _Requirements: 6.2, 6.3_
+  - [ ]\* 4.4 Write property test for locale switching
+    - **Property 4: Locale Switching Updates UI**
+    - **Validates: Requirements 6.2, 6.3**
+  - [ ]\* 4.5 Write property test for locale persistence
+    - **Property 9: Locale Persistence**
+    - **Validates: Requirements 6.4**
+  - [ ]\* 4.6 Write property test for browser locale detection
+    - **Property 10: Browser Locale Detection**
+    - **Validates: Requirements 6.5**
+  - [ ]\* 4.7 Write unit tests for locale switcher
+    - Test getCurrentLocale returns correct locale
+    - Test setLocale updates current locale
+    - Test detectBrowserLocale detects correct locale
+    - Test locale persistence to localStorage
+    - Test locale restoration from localStorage
+    - _Requirements: 6.1, 6.2, 6.4, 6.5_
+
+- [ ] 5. Create LocaleSwitcher component
+  - [x] 5.1 Implement LocaleSwitcher component
+    - Define Props interface (including class?: string)
+    - Use $props() for prop destructuring (rename class to className)
+    - Create select dropdown with available locales
+    - Display native names for each locale
+    - Use onchange attribute (NO on:change directive)
+    - Handle locale change on selection
+    - Use $state for current locale
+    - Apply Tailwind styling
+    - _Requirements: 6.1, 6.2_
+    - _Svelte 5: NO on: directive, use onchange attribute_
+  - [ ]\* 5.2 Write unit tests for LocaleSwitcher
+    - Test component renders all locales
+    - Test locale change updates state
+    - Test locale change calls setLocale
+    - _Requirements: 6.1, 6.2_
+  - [ ]\* 5.3 Create LocaleSwitcher Storybook story
+    - Story showing all available locales
+    - Story demonstrating locale switching
+    - _Requirements: 6.1_
+
+- [ ] 6. Implement pluralization support
+  - [x] 6.1 Add plural messages for English
+    - Add todo_count with singular/plural forms
+    - Add completed_count with singular/plural forms
+    - Add pending_count with singular/plural forms
+    - _Requirements: 7.1, 7.2_
+  - [x] 6.2 Add plural messages for Chinese
+    - Add todo_count following Chinese pluralization rules
+    - Add completed_count following Chinese pluralization rules
+    - Add pending_count following Chinese pluralization rules
+    - _Requirements: 7.3_
+  - [x] 6.3 Add plural messages for Japanese
+    - Add todo_count following Japanese pluralization rules
+    - Add completed_count following Japanese pluralization rules
+    - Add pending_count following Japanese pluralization rules
+    - _Requirements: 7.4_
+  - [x] 6.4 Add zero-case messages
+    - Add messages for zero items in all locales
+    - Test zero-case displays correctly
+    - _Requirements: 7.5_
+  - [ ]\* 6.5 Write property test for pluralization
+    - **Property 5: Pluralization Correctness**
+    - **Validates: Requirements 7.1, 7.2, 7.3, 7.4**
+  - [ ]\* 6.6 Write unit tests for pluralization
+    - Test singular form for count = 1
+    - Test plural form for count > 1
+    - Test zero form for count = 0
+    - Test for all locales
+    - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5_
+
+- [ ] 7. Implement date and number formatters
+  - [x] 7.1 Create date formatter
+    - Define DateFormatOptions interface
+    - Implement formatDate function using Intl.DateTimeFormat
+    - Support short, medium, long, full styles
+    - Support includeTime option
+    - Handle all supported locales
+    - _Requirements: 8.1, 8.4_
+  - [x] 7.2 Create number formatter
+    - Define NumberFormatOptions interface
+    - Implement formatNumber function using Intl.NumberFormat
+    - Support decimal, currency, percent styles
+    - Support currency option
+    - Support fraction digits options
+    - Handle all supported locales
+    - _Requirements: 8.2, 8.3_
+  - [x] 7.3 Create relative time formatter
+    - Implement formatRelativeTime function
+    - Support "X days ago", "X hours ago" format
+    - Use locale-appropriate phrases
+    - Handle all supported locales
+    - _Requirements: 8.5_
+  - [ ]\* 7.4 Write property test for date formatting
+    - **Property 6: Date Format Locale Consistency**
+    - **Validates: Requirements 8.1**
+  - [ ]\* 7.5 Write property test for number formatting
+    - **Property 7: Number Format Locale Consistency**
+    - **Validates: Requirements 8.2**
+  - [ ]\* 7.6 Write unit tests for formatters
+    - Test formatDate with different styles
+    - Test formatDate with different locales
+    - Test formatNumber with different styles
+    - Test formatNumber with different locales
+    - Test formatRelativeTime with different locales
+    - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5_
+
+- [ ] 8. Implement missing translation handling
+  - [x] 8.1 Add fallback logic
+    - Fall back to base locale (en) for missing translations
+    - Log warning in development mode
+    - Display message key as last resort
+    - _Requirements: 9.1, 9.2, 9.3, 9.4_
+  - [ ]\* 8.2 Write property test for fallback
+    - **Property 3: Missing Translation Fallback**
+    - **Validates: Requirements 9.1**
+  - [ ]\* 8.3 Write unit tests for fallback
+    - Test fallback to base locale
+    - Test warning logged in dev mode
+    - Test message key displayed as last resort
+    - _Requirements: 9.1, 9.2, 9.3, 9.4_
+  - [ ]\* 8.4 Create missing translation report
+    - Generate report of missing translations
+    - List missing keys per locale
+    - Output to console or file
+    - _Requirements: 9.5_
+
+- [ ] 9. Implement build-time validation
+  - [x] 9.1 Add message file validation
+    - Validate JSON syntax in all message files
+    - Validate all locales have same keys
+    - Validate parameter consistency
+    - Fail build on validation errors
+    - _Requirements: 10.1, 10.2, 10.4_
+  - [x] 9.2 Add unused key detection
+    - Detect message keys not used in code
+    - Report unused keys
+    - Optionally fail build on unused keys
+    - _Requirements: 10.3_
+  - [ ]\* 9.3 Write property test for build validation
+    - **Property 8: Build-time Validation**
+    - **Validates: Requirements 10.1, 10.2**
+  - [ ]\* 9.4 Write unit tests for validation
+    - Test validation catches missing keys
+    - Test validation catches invalid JSON
+    - Test validation catches parameter mismatches
+    - Test validation reports unused keys
+    - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.5_
+
+- [ ] 10. Update todo components with translations
+  - [x] 10.1 Update TodoList component
+    - Replace hardcoded strings with message functions
+    - Use m.all_todos(), m.loading(), m.error()
+    - Use m.todo_count() for count display
+    - _Requirements: 3.1, 3.4_
+  - [x] 10.2 Update TodoItem component
+    - Replace hardcoded strings with message functions
+    - Use m.mark_complete(), m.mark_incomplete()
+    - Use m.delete_todo()
+    - _Requirements: 3.1, 3.4_
+  - [x] 10.3 Update TodoForm component
+    - Replace hardcoded strings with message functions
+    - Use m.add_todo(), m.todo_title()
+    - Use translated validation messages
+    - _Requirements: 3.1, 3.4, 5.5_
+  - [ ]\* 10.4 Write integration tests for translated components
+    - Test components display translated text
+    - Test components update on locale change
+    - Test for all supported locales
+    - _Requirements: 3.1, 3.4_
+
+- [ ] 11. Add LocaleSwitcher to application layout
+  - [x] 11.1 Add LocaleSwitcher to header/navigation
+    - Import LocaleSwitcher component
+    - Place in application header or navigation
+    - Style consistently with application design
+    - _Requirements: 6.1_
+  - [ ]\* 11.2 Write integration tests for locale switching
+    - Test locale switcher appears in layout
+    - Test switching locale updates all components
+    - Test locale preference persists across page loads
+    - _Requirements: 6.1, 6.2, 6.3, 6.4_
+
+- [ ] 12. Write E2E tests for i18n
+  - [ ]\* 12.1 Create E2E test for locale switching
+    - Navigate to application
+    - Switch to Chinese (zh-tw)
+    - Verify UI displays Chinese text
+    - Switch to Japanese (jp)
+    - Verify UI displays Japanese text
+    - _Requirements: 6.2, 6.3_
+  - [ ]\* 12.2 Create E2E test for locale persistence
+    - Navigate to application
+    - Switch to Chinese (zh-tw)
+    - Reload page
+    - Verify UI still displays Chinese text
+    - _Requirements: 6.4_
+  - [ ]\* 12.3 Create E2E test for pluralization
+    - Navigate to todos page
+    - Verify singular form for 1 todo
+    - Add more todos
+    - Verify plural form for multiple todos
+    - Test for all locales
+    - _Requirements: 7.1, 7.2, 7.3, 7.4_
+  - [ ]\* 12.4 Create E2E test for date/number formatting
+    - Navigate to page with dates and numbers
+    - Switch locales
+    - Verify formatting changes per locale
+    - _Requirements: 8.1, 8.2_
+
+- [ ] 13. Documentation
+  - [ ]\* 13.1 Create i18n usage guide
+    - Document how to add new messages
+    - Document how to use messages in components
+    - Document how to add new locales
+    - Document pluralization syntax
+    - Document date/number formatting
+  - [ ]\* 13.2 Create translation guide
+    - Document translation workflow
+    - Provide guidelines for translators
+    - Document context for ambiguous messages
+    - Document pluralization rules per locale
+  - [ ]\* 13.3 Update component documentation
+    - Add i18n examples to Storybook
+    - Document message usage in components
+    - Show examples in multiple locales
+
+- [ ] 14. Final checkpoint
+  - Ensure all tests pass (npm run test)
+  - Ensure type checking passes (npm run check)
+  - Ensure build succeeds with validation
+  - Ensure all locales have complete translations
+  - Verify locale switching works in all components
+  - Verify pluralization works correctly
+  - Verify date/number formatting works correctly
+  - Verify locale persistence works
+  - Ask the user if questions arise

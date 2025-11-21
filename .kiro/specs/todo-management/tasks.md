@@ -1,0 +1,331 @@
+# Implementation Plan
+
+- [x] 1. Create todo domain directory structure
+  - Create src/lib/domains/todo/ directory
+  - Create subdirectories: components/, models/, services/, repositories/
+  - Create src/routes/todos/ directory for todo pages
+  - _Requirements: Domain structure setup_
+
+- [x] 2. Define todo data models
+  - [x] 2.1 Create TypeScript interfaces
+    - Define TodoItem interface with id, title, completed, createdAt, updatedAt
+    - Define CreateTodoDto interface with title
+    - Define UpdateTodoDto interface with optional title and completed
+    - Export all interfaces from todo.types.ts
+    - _Requirements: 1.1, 1.2, 1.3_
+  - [x] 2.2 Create Zod validation schemas
+    - Define createTodoSchema with title validation (min 2, max 100 characters)
+    - Define updateTodoSchema with optional title and completed
+    - Export type inference types using z.infer
+    - _Requirements: 1.4, 1.5, 1.6_
+  - [ ]\* 2.3 Write property test for form validation
+    - **Property 9: Form Validation Rejection**
+    - **Validates: Requirements 1.4**
+  - [ ]\* 2.4 Write unit tests for schemas
+    - Test createTodoSchema rejects titles shorter than 2 characters
+    - Test createTodoSchema rejects titles longer than 100 characters
+    - Test createTodoSchema accepts valid titles
+    - Test updateTodoSchema handles optional fields
+    - _Requirements: 1.4, 1.5_
+
+- [x] 3. Implement todo repository layer
+  - [x] 3.1 Define repository interface
+    - Create TodoRepository interface in todo.repository.ts
+    - Define getAll, getById, create, update, delete methods
+    - Add JSDoc comments for each method
+    - _Requirements: 2.1, 2.6_
+  - [x] 3.2 Implement HTTP repository
+    - Create HttpTodoRepository class implementing TodoRepository
+    - Accept fetch function in constructor for SSR compatibility
+    - Implement getAll method using publicConfig.apiBase
+    - Implement create method with POST request
+    - Implement update method with PUT request
+    - Implement delete method with DELETE request
+    - _Requirements: 2.2, 2.4_
+  - [x] 3.3 Add error handling to repository
+    - Throw Error with status code and message for non-2xx responses
+    - Include descriptive error messages for each operation
+    - Handle network errors appropriately
+    - _Requirements: 2.3_
+  - [ ]\* 3.4 Write property test for repository error handling
+    - **Property 10: Repository Error Throwing**
+    - **Validates: Requirements 2.3, 8.1**
+  - [ ]\* 3.5 Write unit tests for HTTP repository
+    - Test getAll fetches todos correctly
+    - Test create sends correct payload
+    - Test update sends correct payload
+    - Test delete calls correct endpoint
+    - Test error handling for 4xx and 5xx responses
+    - Mock fetch function using vi.fn()
+    - _Requirements: 2.2, 2.3, 2.4, 2.6_
+  - [ ]\* 3.6 Create mock repository for testing
+    - Implement MockTodoRepository with in-memory storage
+    - Implement all TodoRepository interface methods
+    - Use for service layer testing
+    - _Requirements: 2.5_
+
+- [x] 4. Implement todo service layer
+  - [x] 4.1 Create TodoService class
+    - Define TodoService class in todo.service.svelte.ts
+    - Add $state properties: items, loading, error, selectedId
+    - Add derived getters: completedCount, pendingCount, selectedItem
+    - Accept TodoRepository and optional initialData in constructor
+    - _Requirements: 3.1, 3.2, 3.3_
+  - [x] 4.2 Implement loadTodos method
+    - Set loading to true at start
+    - Clear error state
+    - Call repository.getAll()
+    - Set items on success
+    - Set error on failure
+    - Set loading to false in finally block
+    - _Requirements: 3.4, 3.5_
+  - [x] 4.3 Implement createTodo method
+    - Set loading to true at start
+    - Clear error state
+    - Call repository.create()
+    - Add new todo to items array
+    - Set error on failure
+    - Set loading to false in finally block
+    - _Requirements: 3.7_
+  - [x] 4.4 Implement toggle method with optimistic updates
+    - Find todo by id
+    - Store previous completed state
+    - Update completed status immediately (optimistic)
+    - Call repository.update()
+    - Rollback on error
+    - Set error on failure
+    - _Requirements: 3.6, 8.2_
+  - [x] 4.5 Implement deleteTodo method
+    - Set loading to true at start
+    - Clear error state
+    - Call repository.delete()
+    - Remove todo from items array
+    - Set error on failure
+    - Set loading to false in finally block
+    - _Requirements: 3.8_
+  - [x] 4.6 Implement select and clearSelection methods
+    - Implement select method to set selectedId
+    - Implement clearSelection method to clear selectedId
+    - _Requirements: 3.2_
+  - [ ]\* 4.7 Write property test for todo creation
+    - **Property 1: Todo Creation Adds Item**
+    - **Validates: Requirements 3.7**
+  - [ ]\* 4.8 Write property test for toggle
+    - **Property 2: Toggle Flips Completion Status**
+    - **Validates: Requirements 3.6**
+  - [ ]\* 4.9 Write property test for delete
+    - **Property 3: Delete Removes Item**
+    - **Validates: Requirements 3.8**
+  - [ ]\* 4.10 Write property test for loading state
+    - **Property 4: Loading State Management**
+    - **Validates: Requirements 3.4**
+  - [ ]\* 4.11 Write property test for error handling
+    - **Property 5: Error State on Repository Failure**
+    - **Validates: Requirements 8.2, 8.3**
+  - [ ]\* 4.12 Write property test for optimistic rollback
+    - **Property 6: Optimistic Update Rollback**
+    - **Validates: Requirements 8.2**
+  - [ ]\* 4.13 Write property test for completed count
+    - **Property 7: Completed Count Accuracy**
+    - **Validates: Requirements 3.3**
+  - [ ]\* 4.14 Write unit tests for TodoService
+    - Test service initializes with initial data
+    - Test loadTodos updates items
+    - Test createTodo adds item
+    - Test toggle flips completed status
+    - Test deleteTodo removes item
+    - Test error handling sets error state
+    - Test loading state management
+    - Test derived getters return correct values
+    - Use MockTodoRepository for testing
+    - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7_
+
+- [x] 5. Add todo service context key
+  - Add TODO_SERVICE_KEY Symbol to src/lib/core/context/keys.ts
+  - Export with JSDoc comment
+  - _Requirements: Dependency injection setup_
+
+- [x] 6. Implement TodoItem component
+  - [x] 6.1 Create TodoItem component
+    - Define TodoItemProps interface (including class?: string)
+    - Use $props() for prop destructuring (rename class to className)
+    - Accept todo, onToggle, onDelete, onSelect props as callbacks
+    - Render todo title with line-through for completed
+    - Add toggle button using UI primitive Button with onclick
+    - Add delete button using UI primitive Button with onclick
+    - Apply Tailwind classes for styling
+    - _Requirements: 4.2, 4.3, 4.4, 4.5, 4.6_
+    - _Svelte 5: NO on: directive, use onclick attribute_
+  - [ ]\* 6.2 Write unit tests for TodoItem
+    - Test todo renders with correct title
+    - Test completed todos have line-through styling
+    - Test toggle button calls onToggle
+    - Test delete button calls onDelete
+    - Test click on item calls onSelect
+    - _Requirements: 4.2, 4.3, 4.4, 4.5_
+  - [ ]\* 6.3 Create TodoItem Storybook stories
+    - Story for pending todo
+    - Story for completed todo
+    - Story with long title
+    - Story demonstrating interactions
+    - _Requirements: 10.1_
+
+- [x] 7. Implement TodoList component
+  - [x] 7.1 Create TodoList component
+    - Get TodoService from context using getContext
+    - Render each todo using TodoItem component
+    - Use todo.id as key in each block
+    - Display loading state when service.loading is true
+    - Display error message when service.error is set
+    - Display empty state when items.length is 0
+    - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 8.4_
+  - [ ]\* 7.2 Write unit tests for TodoList
+    - Test renders all todos from service
+    - Test displays loading indicator
+    - Test displays error message
+    - Test displays empty state
+    - Test passes correct props to TodoItem
+    - Mock service using setContext in test
+    - _Requirements: 4.1, 4.2, 4.6, 8.4_
+  - [ ]\* 7.3 Create TodoList Storybook stories
+    - Story with multiple todos
+    - Story with loading state
+    - Story with error state
+    - Story with empty state
+    - _Requirements: 10.2_
+
+- [x] 8. Implement TodoForm component
+  - [x] 8.1 Create TodoForm component
+    - Define Props interface with data type
+    - Get form data from props using $props()
+    - Use superForm for form state management
+    - Bind form.title to input using UI primitive Input
+    - Display validation errors from $errors.title
+    - Use enhance action for progressive enhancement
+    - Show submitting state on button
+    - Use UI primitive Button for submit
+    - _Requirements: 4.7, 4.8, 4.9_
+    - _Svelte 5: Define Props interface, NO on: directive_
+  - [ ]\* 8.2 Write unit tests for TodoForm
+    - Test form renders with input field
+    - Test validation errors display
+    - Test submitting state disables button
+    - Test form submission calls action
+    - _Requirements: 4.7, 4.8, 4.9_
+  - [ ]\* 8.3 Create TodoForm Storybook stories
+    - Story with empty form
+    - Story with validation errors
+    - Story with submitting state
+    - _Requirements: 10.3_
+
+- [x] 9. Implement todo page load function
+  - [x] 9.1 Create +page.ts load function
+    - Instantiate HttpTodoRepository with fetch
+    - Call repository.getAll() to fetch todos
+    - Return items in data object
+    - _Requirements: 5.1, 5.2_
+
+- [x] 10. Implement todo page server actions
+  - [x] 10.1 Create +page.server.ts load function
+    - Initialize empty Superform with createTodoSchema
+    - Return form in data object
+    - _Requirements: 6.1_
+  - [x] 10.2 Create create action
+    - Validate form data with superValidate
+    - Return 400 error if validation fails
+    - Instantiate HttpTodoRepository with fetch
+    - Call repository.create() with form data
+    - Return form with success status
+    - _Requirements: 6.2, 6.3, 6.4, 6.5_
+  - [ ]\* 10.3 Write unit tests for server actions
+    - Test create action validates form data
+    - Test create action returns 400 on validation failure
+    - Test create action calls repository on success
+    - Mock repository for testing
+    - _Requirements: 6.2, 6.3, 6.4_
+
+- [x] 11. Implement todo page component
+  - [x] 11.1 Create +page.svelte component
+    - Define Props interface with data type
+    - Get data from props using $props()
+    - Instantiate HttpTodoRepository with fetch
+    - Instantiate TodoService with repository and data.items
+    - Inject service into context using setContext
+    - Use $effect to sync service.items with data.items (CRITICAL)
+    - Display error message if service.error is set
+    - Render TodoForm component
+    - Render TodoList component
+    - _Requirements: 5.3, 5.4, 5.5, 5.6, 5.7, 9.1, 9.2, 9.3, 9.4, 9.5_
+    - _Svelte 5: Define Props interface, use $effect for sync_
+  - [ ]\* 11.2 Write property test for $effect sync
+    - **Property 8: $effect Sync on Route Change**
+    - **Validates: Requirements 9.2, 9.5**
+  - [ ]\* 11.3 Write integration tests for page
+    - Test service is injected into context
+    - Test $effect syncs service state on data change
+    - Test page renders TodoForm and TodoList
+    - Test error display works correctly
+    - _Requirements: 5.3, 5.4, 5.5, 5.6, 5.7, 9.1, 9.2, 9.3, 9.4, 9.5_
+
+- [ ] 12. Write E2E tests
+  - [ ]\* 12.1 Create E2E test for todo creation
+    - Navigate to /todos page
+    - Fill in todo title
+    - Submit form
+    - Verify todo appears in list
+    - _Requirements: Full flow testing_
+  - [ ]\* 12.2 Create E2E test for todo toggle
+    - Navigate to /todos page
+    - Create a todo
+    - Click toggle button
+    - Verify line-through styling applied
+    - Click toggle again
+    - Verify line-through styling removed
+    - _Requirements: Full flow testing_
+  - [ ]\* 12.3 Create E2E test for todo deletion
+    - Navigate to /todos page
+    - Create a todo
+    - Click delete button
+    - Verify todo removed from list
+    - _Requirements: Full flow testing_
+  - [ ]\* 12.4 Create E2E test for error handling
+    - Mock API to return error
+    - Navigate to /todos page
+    - Verify error message displays
+    - _Requirements: 8.4_
+  - [ ]\* 12.5 Create E2E test for form validation
+    - Navigate to /todos page
+    - Submit form with empty title
+    - Verify validation error displays
+    - Submit form with 1 character title
+    - Verify validation error displays
+    - _Requirements: 6.7_
+
+- [ ] 13. Documentation and examples
+  - [ ]\* 13.1 Create README for todo domain
+    - Document todo domain architecture
+    - Explain Repository pattern usage
+    - Explain Service pattern with Runes
+    - Explain $effect sync pattern (CRITICAL)
+    - Add code examples for each layer
+  - [ ]\* 13.2 Document critical patterns
+    - Document the $effect sync pattern in detail
+    - Document optimistic updates pattern
+    - Document error handling pattern
+    - Document form handling with Superforms
+  - [ ]\* 13.3 Create architecture diagram
+    - Create diagram showing data flow
+    - Show relationship between layers
+    - Highlight critical $effect pattern
+    - Show error handling flow
+
+- [x] 14. Final checkpoint
+  - Ensure all tests pass (npm run test)
+  - Ensure type checking passes (npm run check)
+  - Ensure linting passes (npm run lint)
+  - Ensure E2E tests pass (npm run test:e2e)
+  - Verify $effect sync works during navigation
+  - Verify optimistic updates work correctly
+  - Verify error handling works throughout stack
+  - Verify form validation works correctly
+  - Ask the user if questions arise

@@ -1,0 +1,284 @@
+# Implementation Plan
+
+- [x] 1. Project initialization and tooling setup
+  - Initialize SvelteKit project with TypeScript strict mode
+  - Install and configure Tailwind CSS 4 with official plugins
+  - Install and configure Vitest with client/server test separation
+  - Install and configure Playwright for E2E testing
+  - Install and configure ESLint with Svelte 5 and TypeScript support
+  - Install and configure Prettier with Svelte and Tailwind plugins
+  - Install and configure Storybook 10 with Svelte CSF and a11y addons
+  - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6_
+
+- [x] 2. Configure path aliases
+  - Add path aliases to svelte.config.js ($core, $ui, $domains, $config, $server, $paraglide)
+  - Update tsconfig.json to recognize path aliases
+  - Verify path alias resolution in TypeScript
+  - _Requirements: 1.7_
+
+- [x] 3. Create directory structure
+  - Create src/lib/config/ directory
+  - Create src/lib/core/ with api/, context/, i18n/ subdirectories
+  - Create src/lib/ui/ with primitives/ and layouts/ subdirectories
+  - Create src/lib/domains/ directory (empty for now)
+  - Create src/lib/server/ directory
+  - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7_
+
+- [x] 4. Implement configuration layer
+  - [x] 4.1 Create public configuration wrapper
+    - Define PublicConfig interface in env.public.ts
+    - Import and validate PUBLIC_API_BASE environment variable
+    - Add optional PUBLIC_APP_NAME with default value
+    - Add computed isDev and isProd properties
+    - Export immutable publicConfig object with `as const`
+    - _Requirements: 2.1, 2.3, 2.5_
+
+  - [-]\* 4.2 Write property test for configuration validation
+    - **Property 1: Configuration Validation**
+    - **Validates: Requirements 2.3**
+
+  - [x] 4.3 Create private configuration wrapper
+    - Define PrivateConfig interface in env.private.ts
+    - Import and validate API_SECRET_KEY environment variable
+    - Add optional DATABASE_URL with validation
+    - Export immutable privateConfig object with `as const`
+    - _Requirements: 2.2, 2.3, 2.5_
+
+  - [x]\* 4.4 Write unit tests for configuration
+    - Test missing required variables throw errors
+    - Test optional variables use defaults
+    - Test computed properties return correct values
+    - _Requirements: 2.1, 2.2, 2.3_
+
+- [x] 5. Implement HTTP client
+  - [x] 5.1 Create HTTP client interface and implementation
+    - Define HttpClient interface with get, post, put, delete methods
+    - Implement createHttpClient factory function
+    - Accept fetch function parameter for SSR compatibility
+    - Use publicConfig.apiBase for base URL
+    - _Requirements: 5.1, 5.3_
+
+  - [x] 5.2 Implement error handling in HTTP client
+    - Throw standardized Error for non-2xx responses
+    - Include status code and message in error
+    - Handle network errors with descriptive messages
+    - Handle JSON parse errors
+    - _Requirements: 5.2_
+
+  - [ ]\* 5.3 Write property test for HTTP client error handling
+    - **Property 4: HTTP Client Error Handling**
+    - **Validates: Requirements 5.2**
+  - [x]\* 5.4 Write unit tests for HTTP client
+    - Test GET requests with correct URL construction
+    - Test POST requests with body serialization
+    - Test error handling for 4xx and 5xx responses
+    - Test network error handling
+    - Mock fetch function using vi.fn()
+    - _Requirements: 5.1, 5.2, 5.3_
+
+- [x] 6. Implement dependency injection system
+  - [x] 6.1 Create context keys file
+    - Create src/lib/core/context/keys.ts
+    - Export HTTP_CLIENT_KEY as Symbol
+    - Add JSDoc comments explaining usage
+    - _Requirements: 3.1, 3.2_
+
+  - [ ]\* 6.2 Write property test for context key uniqueness
+    - **Property 5: Context Key Uniqueness**
+    - **Validates: Requirements 3.1**
+  - [ ]\* 6.3 Write unit tests for dependency injection
+    - Test Symbol keys are unique
+    - Test setContext and getContext work correctly
+    - Test TypeScript types are enforced
+    - _Requirements: 3.1, 3.3, 3.4_
+
+- [x] 7. Implement Button UI primitive
+  - [x] 7.1 Create Button component
+    - Define ButtonProps interface with all props (including class?: string)
+    - Use $props() for prop destructuring (rename class to className)
+    - Accept children as Snippet (NO <slot> allowed)
+    - Support variant prop (primary, secondary, danger)
+    - Support size prop (sm, md, lg)
+    - Support disabled and type props
+    - Use onclick attribute (NO on:click directive)
+    - Apply Tailwind classes based on variant and size
+    - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.8, 4.9_
+    - _Svelte 5: NO export let, NO <slot>, NO on: directive_
+
+  - [ ]\* 7.2 Write property test for Button variant rendering
+    - **Property 6: Button Variant Rendering**
+    - **Validates: Requirements 4.3**
+  - [x] 7.3 Add accessibility features to Button
+    - Add proper ARIA attributes
+    - Support keyboard navigation (Enter, Space)
+    - Add focus styles
+    - Support disabled state properly
+    - _Requirements: 4.10_
+
+  - [ ]\* 7.4 Write unit tests for Button component
+    - Test children snippet renders correctly
+    - Test onclick handler is called
+    - Test variant classes are applied
+    - Test disabled state prevents clicks
+    - Test keyboard accessibility
+    - _Requirements: 4.2, 4.3, 4.4, 4.10_
+  - [ ]\* 7.5 Create Button Storybook stories
+    - Story for all variants
+    - Story for all sizes
+    - Story for disabled state
+    - Story for different button types
+    - _Requirements: 4.3, 4.4_
+
+- [x] 8. Implement Input UI primitive
+  - [x] 8.1 Create Input component
+    - Define InputProps interface with all props (including class?: string)
+    - Use $props() for prop destructuring (rename class to className)
+    - Use $bindable() for value prop to enable bind:value
+    - Support type prop (text, email, password, number)
+    - Use oninput attribute (NO on:input directive)
+    - Support label, placeholder, error props
+    - Support disabled and required props
+    - Apply Tailwind classes for styling
+    - _Requirements: 4.5, 4.6, 4.8, 4.9_
+    - _Svelte 5: Use $bindable() for two-way binding, NO on: directive_
+
+  - [ ]\* 8.2 Write property test for Input value binding
+    - **Property 7: Input Value Binding**
+    - **Validates: Requirements 4.6**
+  - [x] 8.3 Add accessibility features to Input
+    - Associate label with input using id
+    - Add ARIA attributes for errors
+    - Support keyboard navigation
+    - Add proper focus styles
+    - _Requirements: 4.10_
+
+  - [ ]\* 8.4 Write unit tests for Input component
+    - Test value binding works correctly
+    - Test onchange callback is called
+    - Test error message displays
+    - Test label association
+    - Test accessibility attributes
+    - _Requirements: 4.5, 4.6, 4.10_
+  - [ ]\* 8.5 Create Input Storybook stories
+    - Story for all input types
+    - Story with label and placeholder
+    - Story with error state
+    - Story for disabled and required states
+    - _Requirements: 4.5, 4.6_
+
+- [x] 9. Implement Modal UI primitive
+  - [x] 9.1 Create Modal component
+    - Define ModalProps interface with all props (including class?: string)
+    - Use $props() for prop destructuring (rename class to className)
+    - Accept children, header, footer as Snippets (NO <slot> allowed)
+    - Support open prop for visibility control
+    - Support onclose callback
+    - Support size prop (sm, md, lg, xl)
+    - Use onclick for backdrop click (NO on:click directive)
+    - Use onkeydown for ESC key (NO on:keydown directive)
+    - Apply Tailwind classes for styling
+    - _Requirements: 4.7, 4.8, 4.9_
+    - _Svelte 5: NO <slot>, NO on: directive, use Snippets_
+
+  - [ ]\* 9.2 Write property test for Modal open state
+    - **Property 8: Modal Open State**
+    - **Validates: Requirements 4.7**
+  - [x] 9.3 Add accessibility features to Modal
+    - Add role="dialog" and aria-modal="true"
+    - Trap focus within modal when open
+    - Return focus to trigger element on close
+    - Add aria-labelledby for header
+    - Support keyboard navigation (ESC to close)
+    - _Requirements: 4.10_
+
+  - [ ]\* 9.4 Write unit tests for Modal component
+    - Test open/close state management
+    - Test backdrop click closes modal
+    - Test ESC key closes modal
+    - Test focus trap works correctly
+    - Test accessibility attributes
+    - _Requirements: 4.7, 4.10_
+  - [ ]\* 9.5 Create Modal Storybook stories
+    - Story for different sizes
+    - Story with header and footer
+    - Story without header/footer
+    - Story demonstrating accessibility
+    - _Requirements: 4.7_
+
+- [x] 10. TypeScript and tooling configuration
+  - [x] 10.1 Configure TypeScript strict mode
+    - Enable all strict mode flags in tsconfig.json
+    - Configure no-any ESLint rule
+    - Verify all existing code passes strict checks
+    - _Requirements: 6.1_
+
+  - [ ]\* 10.2 Write property test for TypeScript strict mode
+    - **Property 10: TypeScript Strict Mode**
+    - **Validates: Requirements 6.1**
+  - [x] 10.3 Configure ESLint rules
+    - Add TypeScript ESLint rules
+    - Add Svelte 5 specific rules
+    - Add Storybook rules
+    - Configure import order rules
+    - _Requirements: 6.2_
+
+  - [x] 10.4 Configure Prettier
+    - Add Svelte plugin configuration
+    - Add Tailwind class sorting plugin
+    - Configure formatting rules
+    - _Requirements: 6.3_
+  - [x] 10.5 Configure Vitest
+    - Set up client test project (browser mode)
+    - Set up server test project (node mode)
+    - Configure test file patterns
+    - Add expect.requireAssertions
+    - _Requirements: 6.4_
+  - [x] 10.6 Configure Storybook
+    - Add accessibility addon
+    - Add Svelte CSF support
+    - Configure Storybook for Svelte 5
+    - Set up Storybook build script
+    - _Requirements: 6.5_
+
+- [ ] 11. Integration testing
+  - [ ]\* 11.1 Write integration tests for path aliases
+    - Test imports from $core resolve correctly
+    - Test imports from $ui resolve correctly
+    - Test imports from $config resolve correctly
+    - Verify no circular dependencies
+    - _Requirements: 1.7_
+  - [ ]\* 11.2 Write integration tests for configuration
+    - Test publicConfig is accessible in client code
+    - Test privateConfig is only accessible in server code
+    - Test configuration validation runs at startup
+    - _Requirements: 2.1, 2.2, 2.4_
+  - [ ]\* 11.3 Write integration tests for UI primitives
+    - Test Button works with Input in forms
+    - Test Modal can contain other UI primitives
+    - Test all components work together
+    - _Requirements: 4.1, 4.5, 4.7_
+
+- [ ] 12. Documentation and examples
+  - [ ]\* 12.1 Create README for infrastructure
+    - Document configuration usage
+    - Document HTTP client usage
+    - Document dependency injection pattern
+    - Document UI primitives usage
+    - Add code examples for each component
+  - [ ]\* 12.2 Create example pages
+    - Create example page demonstrating all UI primitives
+    - Create example page demonstrating configuration usage
+    - Create example page demonstrating HTTP client usage
+  - [ ]\* 12.3 Update Storybook documentation
+    - Add MDX documentation for each component
+    - Add usage examples
+    - Add accessibility guidelines
+    - Add design tokens documentation
+
+- [x] 13. Final checkpoint
+  - Ensure all tests pass (npm run test)
+  - Ensure type checking passes (npm run check)
+  - Ensure linting passes (npm run lint)
+  - Ensure Storybook builds successfully
+  - Verify all path aliases work correctly
+  - Ask the user if questions arise
