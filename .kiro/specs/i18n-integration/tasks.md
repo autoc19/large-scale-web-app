@@ -185,15 +185,15 @@
     - Log warning in development mode
     - Display message key as last resort
     - _Requirements: 9.1, 9.2, 9.3, 9.4_
-  - [x]\* 8.2 Write property test for fallback
+  - [x] 8.2 Write property test for fallback
     - **Property 3: Missing Translation Fallback**
     - **Validates: Requirements 9.1**
-  - [x]\* 8.3 Write unit tests for fallback
+  - [x] 8.3 Write unit tests for fallback
     - Test fallback to base locale
     - Test warning logged in dev mode
     - Test message key displayed as last resort
     - _Requirements: 9.1, 9.2, 9.3, 9.4_
-  - [x]\* 8.4 Create missing translation report
+  - [x] 8.4 Create missing translation report
     - Generate report of missing translations
     - List missing keys per locale
     - Output to console or file
