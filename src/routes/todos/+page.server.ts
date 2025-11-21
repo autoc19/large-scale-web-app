@@ -18,7 +18,6 @@ import type { PageServerLoad, Actions } from './$types';
  */
 export const load: PageServerLoad = async () => {
 	// Initialize empty form with createTodoSchema
-	// @ts-expect-error - sveltekit-superforms zod adapter type issue
 	const form = await superValidate(zod(createTodoSchema));
 
 	return {
@@ -35,7 +34,6 @@ export const actions: Actions = {
 	 */
 	create: async ({ request, fetch }) => {
 		// Validate form data against Zod schema
-		// @ts-expect-error - sveltekit-superforms zod adapter type issue
 		const form = await superValidate(request, zod(createTodoSchema));
 
 		// Return validation errors if form is invalid

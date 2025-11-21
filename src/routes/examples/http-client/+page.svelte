@@ -232,7 +232,7 @@ const todos = await client.get<TodoItem[]>('/api/todos');
 				<div class="border-l-4 border-green-500 pl-4">
 					<h3 class="font-semibold text-green-900 mb-1">✅ DO</h3>
 					<code class="text-sm text-gray-700">
-						try { ... } catch (error) { ... }
+						try &#123; ... &#125; catch (error) &#123; ... &#125;
 					</code>
 				</div>
 

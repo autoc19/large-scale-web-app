@@ -255,51 +255,51 @@
     - Test locale preference persists across page loads
     - _Requirements: 6.1, 6.2, 6.3, 6.4_
 
-- [ ]\* 12. Write E2E tests for i18n
-  - [ ]\* 12.1 Create E2E test for locale switching
+- [x] 12. Write E2E tests for i18n
+  - [x] 12.1 Create E2E test for locale switching
     - Navigate to application
     - Switch to Chinese (zh-tw)
     - Verify UI displays Chinese text
     - Switch to Japanese (jp)
     - Verify UI displays Japanese text
     - _Requirements: 6.2, 6.3_
-  - [ ]\* 12.2 Create E2E test for locale persistence
+  - [x] 12.2 Create E2E test for locale persistence
     - Navigate to application
     - Switch to Chinese (zh-tw)
     - Reload page
     - Verify UI still displays Chinese text
     - _Requirements: 6.4_
-  - [ ]\* 12.3 Create E2E test for pluralization
+  - [x] 12.3 Create E2E test for pluralization
     - Navigate to todos page
     - Verify singular form for 1 todo
     - Add more todos
     - Verify plural form for multiple todos
     - Test for all locales
     - _Requirements: 7.1, 7.2, 7.3, 7.4_
-  - [ ]\* 12.4 Create E2E test for date/number formatting
+  - [x] 12.4 Create E2E test for date/number formatting
     - Navigate to page with dates and numbers
     - Switch locales
     - Verify formatting changes per locale
     - _Requirements: 8.1, 8.2_
 
-- [ ]\* 13. Documentation
-  - [ ]\* 13.1 Create i18n usage guide
+- [x] 13. Documentation
+  - [x] 13.1 Create i18n usage guide
     - Document how to add new messages
     - Document how to use messages in components
     - Document how to add new locales
     - Document pluralization syntax
     - Document date/number formatting
-  - [ ]\* 13.2 Create translation guide
+  - [x] 13.2 Create translation guide
     - Document translation workflow
     - Provide guidelines for translators
     - Document context for ambiguous messages
     - Document pluralization rules per locale
-  - [ ]\* 13.3 Update component documentation
+  - [x] 13.3 Update component documentation
     - Add i18n examples to Storybook
     - Document message usage in components
     - Show examples in multiple locales
 
-- [ ] 14. Final checkpoint
+- [x] 14. Final checkpoint
   - Ensure all tests pass (npm run test)
   - Ensure type checking passes (npm run check)
   - Ensure build succeeds with validation
