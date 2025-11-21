@@ -86,7 +86,7 @@
   - [ ]\* 6.2 Write property test for context key uniqueness
     - **Property 5: Context Key Uniqueness**
     - **Validates: Requirements 3.1**
-  - [ ]\* 6.3 Write unit tests for dependency injection
+  - [x]\* 6.3 Write unit tests for dependency injection
     - Test Symbol keys are unique
     - Test setContext and getContext work correctly
     - Test TypeScript types are enforced
@@ -115,7 +115,7 @@
     - Support disabled state properly
     - _Requirements: 4.10_
 
-  - [ ]\* 7.4 Write unit tests for Button component
+  - [x]\* 7.4 Write unit tests for Button component
     - Test children snippet renders correctly
     - Test onclick handler is called
     - Test variant classes are applied
@@ -152,7 +152,7 @@
     - Add proper focus styles
     - _Requirements: 4.10_
 
-  - [ ]\* 8.4 Write unit tests for Input component
+  - [x]\* 8.4 Write unit tests for Input component
     - Test value binding works correctly
     - Test onchange callback is called
     - Test error message displays
@@ -191,7 +191,7 @@
     - Support keyboard navigation (ESC to close)
     - _Requirements: 4.10_
 
-  - [ ]\* 9.4 Write unit tests for Modal component
+  - [x]\* 9.4 Write unit tests for Modal component
     - Test open/close state management
     - Test backdrop click closes modal
     - Test ESC key closes modal
@@ -241,35 +241,35 @@
     - _Requirements: 6.5_
 
 - [ ] 11. Integration testing
-  - [ ]\* 11.1 Write integration tests for path aliases
+  - [x]\* 11.1 Write integration tests for path aliases
     - Test imports from $core resolve correctly
     - Test imports from $ui resolve correctly
     - Test imports from $config resolve correctly
     - Verify no circular dependencies
     - _Requirements: 1.7_
-  - [ ]\* 11.2 Write integration tests for configuration
+  - [x]\* 11.2 Write integration tests for configuration
     - Test publicConfig is accessible in client code
     - Test privateConfig is only accessible in server code
     - Test configuration validation runs at startup
     - _Requirements: 2.1, 2.2, 2.4_
-  - [ ]\* 11.3 Write integration tests for UI primitives
+  - [x]\* 11.3 Write integration tests for UI primitives
     - Test Button works with Input in forms
     - Test Modal can contain other UI primitives
     - Test all components work together
     - _Requirements: 4.1, 4.5, 4.7_
 
 - [ ] 12. Documentation and examples
-  - [ ]\* 12.1 Create README for infrastructure
+  - [x]\* 12.1 Create README for infrastructure
     - Document configuration usage
     - Document HTTP client usage
     - Document dependency injection pattern
     - Document UI primitives usage
     - Add code examples for each component
-  - [ ]\* 12.2 Create example pages
+  - [x]\* 12.2 Create example pages
     - Create example page demonstrating all UI primitives
     - Create example page demonstrating configuration usage
     - Create example page demonstrating HTTP client usage
-  - [ ]\* 12.3 Update Storybook documentation
+  - [x]\* 12.3 Update Storybook documentation
     - Add MDX documentation for each component
     - Add usage examples
     - Add accessibility guidelines
