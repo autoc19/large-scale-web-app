@@ -60,6 +60,32 @@ export const HTTP_CLIENT_KEY = Symbol('HTTP_CLIENT');
 export const TODO_SERVICE_KEY = Symbol('TODO_SERVICE');
 
 /**
+ * About Service context key
+ *
+ * @example
+ * ```typescript
+ * // In +page.svelte
+ * import { setContext } from 'svelte';
+ * import { AboutService } from '$domains/about/services/about.service.svelte';
+ * import { ABOUT_SERVICE_KEY } from '$core/context/keys';
+ *
+ * const service = new AboutService(repo, data);
+ * setContext(ABOUT_SERVICE_KEY, service);
+ * ```
+ *
+ * @example
+ * ```typescript
+ * // In child component
+ * import { getContext } from 'svelte';
+ * import { ABOUT_SERVICE_KEY } from '$core/context/keys';
+ * import type { AboutService } from '$domains/about/services/about.service.svelte';
+ *
+ * const service = getContext<AboutService>(ABOUT_SERVICE_KEY);
+ * ```
+ */
+export const ABOUT_SERVICE_KEY = Symbol('ABOUT_SERVICE');
+
+/**
  * Future domain service keys will be added here
  *
  * Example:
